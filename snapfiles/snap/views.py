@@ -10,13 +10,13 @@ import os
 def upload(request):
     if request.method =="POST":
         uploaded_file = request.FILES['document']
-        token = randomString()
+        token = str(uuid.uuid1())
         new_dir = os.path.join(settings.MEDIA_DIR,token)
         os.mkdir(new_dir)
         fs = FileSystemStorage(location=new_dir)
         name = fs.save(uploaded_file.name, uploaded_file)
         file_url = fs.url(name)
         print(file_url)
-        return render(request,'url_view.html', { 'file_url':file_url,})
+        return render(request,'url_view.html', { 'token_id':token,})
 
     return render(request,'upload.html')
