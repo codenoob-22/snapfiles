@@ -11,6 +11,7 @@ def upload(request):
     if request.method =="POST":
         uploaded_file = request.FILES['document']
         token = str(uuid.uuid1())
+        tokenid = token
         new_dir = os.path.join(settings.MEDIA_DIR,token)
         os.mkdir(new_dir)
         fs = FileSystemStorage(location=new_dir)
@@ -20,3 +21,16 @@ def upload(request):
         return render(request,'url_view.html', { 'token_id':token,})
 
     return render(request,'upload.html')
+
+def get_files(request):
+    # check wheter for a partiular token-id, folder exits or not
+    if request.method =="POST":
+        token = request.get('tokenID')
+        dir_ = os.path.join(settings.MEDIA_DIR,token)
+        if(os.path.exists(dir_)):
+            ggg  = []  
+        return render(request,'getfiles.html',{'result':'token Invalid!',})
+
+    
+    return render(request,'getfiles.html',{'result':'enter your token',})
+
