@@ -1,11 +1,15 @@
 import random
 import string
-import uuid
+import os
+from django.conf import settings
 
 def randomString(stringLength=10):
     ''' Generate a random string of fixed len'''
-    letters = string.ascii_lowercase + string.ascii_uppercase + "1234567890"
-    return ''.join(random.choice(letters) for i in range(stringLength))
+    letters = string.ascii_letters + string.digits
+    token   = ''.join(random.choice(letters) for i in range(stringLength))
+    if(os.path.exists(os.path.join(settings.BASE_DIR, token))):
+        return randomString()
+    return token    
 
 # instead of this i used uuid function :=> refer views.py
-#  why?- because i wasnt sure that it will always produce unique tokens. 
+#  

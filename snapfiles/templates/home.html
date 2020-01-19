@@ -1,1 +1,31 @@
 {% extends 'base.html' %}
+
+{% block title %}
+Homepage
+{% endblock %}
+
+{% block user_or_authenticate %}
+    {% if user.is_authenticated %}
+        <p> Hello There! {{ user.get_username }}! 
+            <a href="{% url 'logout' %}">
+                logout?
+            </a>
+        </p>
+    {% else %}
+        <p> 
+            Looks like you're new here please 
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+             or
+            <a href="{% url 'signup' %}">
+                Sign up
+            </a>
+        </p>
+    {% endif %}  
+    <hr />  
+{% endblock %}
+
+{% block content %}
+Send your file Across Internet in A secure Way! <a href="{% url 'upload' %}">Proceed Here</a> 
+{% endblock %}

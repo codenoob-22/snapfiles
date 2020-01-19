@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>snapfiles</title>
-        <h1>Snapchat for files</h1>
+        <title>
+            {% block title %}
+            {% endblock %}
+        </title>
+        <h1>Snapchat for files</h1> 
     </head>
     <body>
+        {% block user_or_authenticate %}
+        {% endblock %}
+        
         {% block content %}
         {% endblock %}
     </body>

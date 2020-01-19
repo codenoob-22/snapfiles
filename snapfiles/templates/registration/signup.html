@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Signup
+{% endblock%}
+
+{% block user_or_authenticate %}
+    <a href="{% url 'login' %}"> login ? </a>
+{% endblock %}
+
+
+{% block content %}
+<p> Signup:</p>
+<form action="{% url 'signup' %}" method="post">
+    {% csrf_token %}
+    <div>
+        
+        <input type="text" name="username" required maxlength="10" placeholder="username">
+        <br />
+        <input type="password" name="password1" placeholder="password" required
+            minlength="8" maxlength="15">
+        <label for="password1" >Regular password rules implied*</label>
+        <br />
+        <input type="password" name="password2" placeholder="Confirm Password" required
+        minlength="8" maxlength="15"> 
+    </div>  
+    <div>   
+    <button type="submit"> SignUp! </button>
+    </div>
+</form>
+{% endblock %}
