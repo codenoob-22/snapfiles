@@ -7,9 +7,10 @@ from django.contrib.auth.forms      import UserCreationForm
 from django.core.files.storage      import FileSystemStorage
 from django.shortcuts               import render, redirect
 from django.conf                    import settings
-
+from .models                         import FileStore
 from snap.randomstr             import randomString
 import os
+import mimetypes
 
 #user authentication and opening pages 
 def home(request):
@@ -19,7 +20,7 @@ def Logout(request):
     logout(request)
     return redirect('home')    
 
-def signup(request):
+def signup(request, error_message=None):
     if request.method =='POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -29,9 +30,10 @@ def signup(request):
             user = authenticate(username=username, password=raw_password)
             login(request,user)
             return redirect('home')
-    else:
-        form = UserCreationForm()
-    return render(request,'registration/signup.html', {'form':form})
+        else:
+            error_message = "invalid format. Please try again"             
+    form = UserCreationForm()
+    return render(request,'registration/signup.html', {'form':form, 'error_message':error_message,})
 
 
 
@@ -51,4 +53,17 @@ def upload(request):
 
     return render(request,'upload.html')
 
+def sendFile(request):
+    token = request.POST['token']
+    
 
+@login_required
+def getFile(request, error_message=None):
+    if request.method == 'POST':
+        token = request.POST['token']
+        if token_valid(token):
+            return sendFile(request)
+        else:
+            error_message = "Token Invalid!"            
+
+    return render(request, 'token_valid.html', error_message)

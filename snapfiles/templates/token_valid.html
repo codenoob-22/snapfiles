@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    GetFile
+{% endblock %}
+    
+{% block content %}
+    <form action="{% url 'token' %}">
+        <label for="token"> enter token here:</label>
+        <input type="text" name="token" >
+        <button type="submit">submit</button>
+    </form>
+{% endblock %}

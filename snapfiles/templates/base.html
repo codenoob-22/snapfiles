@@ -10,7 +10,13 @@
     <body>
         {% block user_or_authenticate %}
         {% endblock %}
+        <hr />
         
+        {% if error_message %}
+            <p>{{ error_message }}</p>
+            <hr />
+        {% endif %}
+
         {% block content %}
         {% endblock %}
     </body>
