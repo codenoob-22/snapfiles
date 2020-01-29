@@ -11,5 +11,3 @@ def randomString(stringLength=10):
         return randomString()
     return token    
 
-# instead of this i used uuid function :=> refer views.py
-#  
